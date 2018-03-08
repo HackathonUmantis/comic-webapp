@@ -1,8 +1,8 @@
 .vscode
 .DS_STORE
-node_modules
+node_modules/
 .module-cache
 *.log*
 build
 dist
-.idea
+.idea/
