@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Layout, Menu, Icon } from 'antd';
 const { Header, Sider, Content } = Layout;
 
+import './style.scss';
+
 export namespace AppLayout {
   export interface Props {
     collapsed:  boolean;
