@@ -1,3 +1,4 @@
 export { AppLayout } from './Layout';
-export { HomePage} from './Home';
-export { SeriesComponent } from './SeriesList';
+export { PageComponent} from './PageComponent';
+export { SeriesComponent } from './SeriesComponent';
+export { ComicsComponent } from './ComicsComponent';

@@ -3,6 +3,7 @@ import {PageModel} from 'app/models/PageModel';
 export interface ComicModel {
   id: number;
   name: string;
+  cover: string;
   author: Author;
   date: Date;
   illustrator: Illustrator;

@@ -5,6 +5,7 @@ import {SeriesModel} from 'app/models';
 const sampleComics = [
   {
     id: 1,
+    cover: 'Some Cover',
     name: 'Rogue Trooper issue 1',
     author: {
       id: 1,
@@ -49,20 +50,6 @@ const initialState: RootState.SeriesState = [
 
 export const seriesReducer = handleActions<RootState.SeriesState, SeriesModel>(
   {
-    // [TodoActions.Type.ADD_TODO]: (state, action) => {
-    //   if (action.payload && action.payload.text) {
-    //     return [
-    //       {
-    //         id: state.reduce((max, todo) => Math.max(todo.id || 1, max), 0) + 1,
-    //         completed: false,
-    //         text: action.payload.text
-    //       },
-    //       ...state
-    //     ];
-    //   } else {
-    //     return state;
-    //   }
-    // },
   },
   initialState
 );

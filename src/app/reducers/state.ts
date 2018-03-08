@@ -3,7 +3,7 @@ import { RouterState } from 'react-router-redux';
 
 export interface RootState {
   series: RootState.SeriesState;
-  episodes: RootState.ComicsState;
+  comics: RootState.ComicsState;
   pages: RootState.PageState;
   router: RouterState
 }

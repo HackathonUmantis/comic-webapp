@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Layout, Menu, Icon} from 'antd';
 import {Route, Switch} from 'react-router';
-import {SeriesList} from 'app/containers';
+import {SeriesList, ComicView, ComicsList} from 'app/containers';
 
 const {Header, Sider, Content} = Layout;
 
@@ -58,9 +58,9 @@ export class AppLayout extends React.Component<AppLayout.Props> {
           <Content style={{margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280}}>
             <Switch>
               <Route exact path="/" component={SeriesList}/>
-              {/*<Route exact path="/**" component={SeriesList}/>*/}
+              <Route exact path="/:slug" component={ComicsList}/>
+              <Route exact path="/**/:page" component={ComicView}/>
             </Switch>
-            Content
           </Content>
         </Layout>
       </Layout>
