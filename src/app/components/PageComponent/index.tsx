@@ -15,9 +15,8 @@ export class PageComponent extends React.Component<PageComponent.Props> {
 
   render() {
     const { page } = this.props;
-    console.log(page);
     return (
-      <div>Test display page</div>
+      <div>{page.image}</div>
     );
   }
 }

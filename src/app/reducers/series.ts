@@ -35,7 +35,19 @@ const sampleComics = [
           y: 30
         }]
       }]
-    }]
+    },
+      {
+        id: 3,
+        image: 'third string',
+        tiles: [{
+          id: 1,
+          coords: [{
+            id: 1,
+            x: 30,
+            y: 30
+          }]
+        }]
+      }]
   }
 ];
 
