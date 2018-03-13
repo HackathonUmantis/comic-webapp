@@ -1,9 +1,16 @@
-import * as React from 'react';
-import * as style from './style.css';
-import {RouteComponentProps} from 'react-router';
+import React from 'react';
+import './style.css';
+
+import { connect } from 'react-redux';
+import { bindActionCreators, Dispatch } from 'redux';
+import { RouteComponentProps } from 'react-router';
+
+import { TodoActions } from 'app/actions';
+import { RootState } from 'app/reducers';
+import { TodoModel } from 'app/models';
+import { omit } from 'app/utils';
+import { AppLayout } from 'app/components';
 import { SeriesActions } from 'app/actions';
-import {RootState} from 'app/reducers';
-import {AppLayout} from 'app/components';
 
 
 export namespace App {

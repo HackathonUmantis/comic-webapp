@@ -5,6 +5,8 @@ import {SeriesList, ComicView, ComicsList} from 'app/containers';
 
 const {Header, Sider, Content} = Layout;
 
+import './style.scss';
+
 export namespace AppLayout {
   export interface Props {
     collapsed: boolean;

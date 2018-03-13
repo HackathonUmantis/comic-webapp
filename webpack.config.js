@@ -41,6 +41,22 @@ module.exports = {
           ? "ts-loader"
           : ["babel-loader?plugins=react-hot-loader/babel", "ts-loader"]
       },
+      // sass
+      {
+        test: /\.(scss|sass)$/,
+        use: ['style-loader', 'css-loader', 'sass-loader']
+      },
+      // less
+      {
+        test: /\.less$/,
+        use: [{
+          loader: "style-loader" // creates style nodes from JS strings
+        }, {
+          loader: "css-loader" // translates CSS into CommonJS
+        }, {
+          loader: "less-loader" // compiles Less to CSS
+        }]
+      },
       // css
       {
         test: /\.css$/,
@@ -61,11 +77,19 @@ module.exports = {
               options: {
                 ident: "postcss",
                 plugins: [
+<<<<<<< HEAD
+                  require('postcss-import')({addDependencyTo: webpack}),
+                  require('postcss-url')(),
+                  require('postcss-cssnext')(),
+                  require('postcss-reporter')(),
+                  require('postcss-browser-reporter')({
+=======
                   require("postcss-import")({ addDependencyTo: webpack }),
                   require("postcss-url")(),
                   require("postcss-cssnext")(),
                   require("postcss-reporter")(),
                   require("postcss-browser-reporter")({
+>>>>>>> origin/initialSetup
                     disabled: isProduction
                   })
                 ]
@@ -75,9 +99,15 @@ module.exports = {
         })
       },
       // static assets
+<<<<<<< HEAD
+      {test: /\.html$/, use: 'html-loader'},
+      {test: /\.(png|svg)$/, use: 'url-loader?limit=10000'},
+      {test: /\.(jpg|gif)$/, use: 'file-loader'}
+=======
       { test: /\.html$/, use: "html-loader" },
       { test: /\.(png|svg)$/, use: "url-loader?limit=10000" },
       { test: /\.(jpg|gif)$/, use: "file-loader" }
+>>>>>>> origin/initialSetup
     ]
   },
   optimization: {
@@ -108,8 +138,14 @@ module.exports = {
       disable: !isProduction
     }),
     new HtmlWebpackPlugin({
+<<<<<<< HEAD
+      template: 'assets/index.html'
+    }),
+    new ExtractTextPlugin({filename: 'styles.css', allChunks: true})
+=======
       template: "assets/index.html"
     })
+>>>>>>> origin/initialSetup
   ],
   devServer: {
     contentBase: sourcePath,
@@ -127,3 +163,5 @@ module.exports = {
     net: "empty"
   }
 };
+
+// "import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }, // `style: true` for less
