@@ -22,19 +22,16 @@ export class AppLayout extends React.Component<AppLayout.Props, any> {
       layer: null,
       image: null,
       tilePoints: [70, 100, 300, 100, 300, 580, 70, 580],
-      tileObject: null
-    }
+    };
+    this.updateStageSize = this.updateStageSize.bind(this);
   }
 
   componentDidMount() {
     this.setState({
         stage: this.refs.mainStage.getStage(),
         layer: this.refs.imgLayer,
-        tileObject: this.refs.firstTile
       }
     );
-    this.updateStageSize = this.updateStageSize.bind(this);
-    this.updateStageSize();
     window.addEventListener('resize', this.updateStageSize);
     const image = new Image();
     image.src = "assets/pages/Page1.jpg";
@@ -44,17 +41,16 @@ export class AppLayout extends React.Component<AppLayout.Props, any> {
       this.setState({
         image: image
       });
+      this.updateStageSize();
     };
   };
 
   handleClick() {
-    const {layer, tileObject, tilePoints} = this.state;
-    console.log(layer)
-    console.log(tileObject)
-    console.log(tilePoints)
+    const {layer, tilePoints, image} = this.state;
     const imgArea: any = this.calculateArea(tilePoints);
-    const xRatio = layer.canvas.width / imgArea.horizontalPixels
-    const yRatio = layer.canvas.height / imgArea.verticalPixels
+    const xRatio = image.width / imgArea.horizontalPixels;
+    const yRatio = image.height / imgArea.verticalPixels;
+
     layer.to({
       x:-(imgArea.startingPoint[0] * xRatio),
       y:-(imgArea.startingPoint[1] * yRatio),
@@ -66,12 +62,14 @@ export class AppLayout extends React.Component<AppLayout.Props, any> {
   }
 
   private updateStageSize() {
-    let {stage} = this.state;
+    let {stage, image} = this.state;
     if (!stage) {
       stage = this.refs.mainStage.getStage();
     }
-    stage.width(window.innerWidth);
-    stage.height(window.innerHeight - 100);
+    const canvasWidth = window.innerWidth > image.width ? image.width : window.innerWidth;
+    const canvasHeight = window.innerHeight > image.height ? image.height : window.innerHeight;
+    stage.width(canvasWidth);
+    stage.height(canvasHeight - 100);
   }
 
   private calculateArea(tilePoints: Array<number>) {
@@ -91,6 +89,25 @@ export class AppLayout extends React.Component<AppLayout.Props, any> {
       verticalPixels: (yMax - yMin),
       area: (xMax - xMin) * (yMax - yMin)
     };
+  }
+
+  fitToViewer() {
+    const {stage, image, layer} = this.state;
+    if (image.width > stage.width()) {
+      console.log('wider')
+    }
+
+    if (image.height > stage.height()) {
+      const zoomOutRatio = stage.height() / image.height;
+      layer.to({
+        x: 0,
+        y: 0,
+        scaleX: zoomOutRatio,
+        scaleY: zoomOutRatio,
+        duration: .2
+      });
+    }
+
   }
 
   private zoomOut() {
@@ -117,7 +134,6 @@ export class AppLayout extends React.Component<AppLayout.Props, any> {
             <KonvaImage ref="img" image={this.state.image}/>
             <Line points={tilePoints}
                   onClick={() => this.handleClick()}
-                  ref={'firstTile'}
                   stroke={'#000000'}
                   strokeWidth={5}
                   closed={true}/>
@@ -125,7 +141,11 @@ export class AppLayout extends React.Component<AppLayout.Props, any> {
         </Stage>
         <button
           onClick={() => this.zoomOut()}
-        >Zoom out
+        >Original Size
+        </button>
+        <button
+          onClick={() => this.fitToViewer()}
+        >Fit image to viewer
         </button>
       </div>
     )
