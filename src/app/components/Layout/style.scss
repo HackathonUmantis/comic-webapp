@@ -4,8 +4,5 @@ body {
 
 .viewHolder {
   background: linear-gradient(to right, #314755, #26a0da);
-}
-
-.viewHolder__stage {
-  background: linear-gradient(to right, #552716, #da7417);
+  &__stage {background: linear-gradient(to right, #552716, #da7417);}
 }
