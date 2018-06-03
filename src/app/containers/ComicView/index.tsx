@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {RouteComponentProps} from 'react-router';
 import {PageModel} from 'app/models';
-import {PageComponent} from 'app/components';
+import {PageViewComponent} from 'app/components';
 import {RootState} from 'app/reducers';
 import {connect} from 'react-redux';
 import * as style from './style.css';

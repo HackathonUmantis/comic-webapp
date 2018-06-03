@@ -1,14 +1,11 @@
 import * as React from 'react';
 // import  {RouteComponentProps} from 'react-router';
-import {Image as KonvaImage, Stage, Layer, Line} from "react-konva";
 // import { ComicView } from 'app/containers';
 // import {SeriesList, ComicView, ComicsList} from 'app/containers';
 
-import * as style from '../PageViewComponent/style.css';
 import {TileClass, TileModel} from 'app/models/TileModel';
 import {PositionOnLayer} from 'app/models/konva.models';
-// import * as Konva from 'konva';
-// import {Layout} from 'antd';
+import {PageViewComponent} from 'app/components';
 
 export namespace PageViewer {
   export interface Props {
@@ -44,8 +41,10 @@ export class PageViewer extends React.Component<PageViewer.Props, any> {
   }
 
   componentDidMount() {
+
+    const stageRef: any =  this.refs['mainStage'];
     this.setState({
-        stage: this.refs.mainStage.getStage(),
+        stage: stageRef.getStage(),
         layer: this.refs.imgLayer,
       }
     );
@@ -101,8 +100,9 @@ export class PageViewer extends React.Component<PageViewer.Props, any> {
 
   updateStageSize() {
     let {stage, image} = this.state;
+    const stageRef = this.refs['mainStage'];
     if (!stage) {
-      stage = this.refs.mainStage.getStage();
+      stage = stageRef.getStage();
     }
     const canvasWidth = window.innerWidth > image.width ? image.width : window.innerWidth;
     const canvasHeight = window.innerHeight > image.height ? image.height : window.innerHeight;
@@ -249,48 +249,16 @@ export class PageViewer extends React.Component<PageViewer.Props, any> {
   render() {
     const {tiles, zoomedIn} = this.state;
     return (
-      <div
-        className={style.viewHolder}
-      >
-        <Stage
-          className={style.viewHolder__stage}
-          ref={'mainStage'}>
-          <Layer
-            draggable={true}
-            dragBoundFunc={
-              (pos) => this.setDraggingFrame(pos)
-            }
-            ref={'imgLayer'}
-          >
-            <KonvaImage ref="img" image={this.state.image}/>
-            {tiles.map((tile: Array<number>, index: number) =>
-              <Line points={tile}
-                    key={index}
-                    // onMouseEnter={() => this.changeOpacity(index)}
-                    onClick={() => !zoomedIn ? this.zoomToTile(index) : null}
-                    stroke={'#ff0000'}
-                    strokeWidth={5}
-                    closed={true}/>
-            )}
-          </Layer>
-        </Stage>
-        <button
-          onClick={() => this.zoomOut()}
-        >Original Size
-        </button>
-        <button
-          onClick={() => this.fitToViewer()}
-        >Fit image to viewer
-        </button>
-        <button
-          onClick={() => this.navigateSlides()}
-        > {'<'} Previous tile
-        </button>
-        <button
-          onClick={() => this.navigateSlides(true)}
-        > Next tile >
-        </button>
-      </div>
+      <PageViewComponent
+        tiles = { tiles}
+        setDraggingFrame = {this.setDraggingFrame}
+        zoomedIn = {zoomedIn}
+        zoomToTile = {this.zoomToTile}
+        zoomOut = {this.zoomOut}
+        fitToViewer = {this.fitToViewer}
+        navigateSlides = {this.navigateSlides}
+      ></PageViewComponent>
+
     )
   }
 }
