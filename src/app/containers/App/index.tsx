@@ -2,7 +2,7 @@ import * as React from 'react';
 import './style.css';
 
 import { RouteComponentProps } from 'react-router';
-import { PageViewer } from 'app/components';
+import {Layout} from 'app/components/Layout';
 
 
 export namespace App {
@@ -18,8 +18,9 @@ export class App extends React.Component<App.Props> {
   render() {
     return (
       <div>
-        <PageViewer collapsed={true}/>
+        <Layout />
       </div>
     );
   }
 }
+
