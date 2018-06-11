@@ -49,7 +49,7 @@ export class ComicView extends React.Component<ComicView.Props, ComicView.State>
   }
 
   render() {
-    const {pages} = this.props;
+    // const {pages} = this.props;
     return (
       <div>
         <div
@@ -57,9 +57,7 @@ export class ComicView extends React.Component<ComicView.Props, ComicView.State>
           onClick={() => this.changePage(true)}
         > {'<<<'} Previous
         </div>
-        <PageComponent
-          page={pages[this.state.selectedPageIndex]}
-        />
+        <PageViewComponent/>
         <div
           className={this.state.selectedPageIndex + 1 === this.props.pages.length ? style.disabled : ''}
           onClick={() => this.changePage()}

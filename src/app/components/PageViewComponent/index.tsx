@@ -1,27 +1,26 @@
 import * as React from 'react';
 import * as style from "./style.css";
-import {Image as KonvaImage, Stage, Layer, Line, Stage} from "react-konva";
+import {Image as KonvaImage, Line, Stage, Layer} from "react-konva";
 import {TileClass, TileModel} from 'app/models/TileModel';
 import {PositionOnLayer} from 'app/models/konva.models';
-import {Stage} from 'konva';
 
 export namespace PageViewComponent {
   export interface Props {}
   export interface State {
-    stage: Stage,
-    layer: Layer,
-    image: HTMLImageElement,
-    tiles: Array<number[]>,
-    scaleRatio: number,
-    containRatio: number,
-    selectedTile: Array<number>,
-    selectedTileClass: TileModel,
-    selectedTileIndex: number,
-    zoomedIn: boolean
+    stage: any,
+    layer: any,
+    image: any,
+    tiles: any,
+    scaleRatio: any,
+    containRatio: any,
+    selectedTile: any,
+    selectedTileClass: any,
+    selectedTileIndex: any,
+    zoomedIn: any
   }
 }
 
-export class PageViewComponent extends React.Component<PageViewComponent.Props> {
+export class PageViewComponent extends React.Component<PageViewComponent.Props, PageViewComponent.State> {
 
 
   tile1: Array<number> = [70, 100, 300, 100, 300, 580, 70, 580];
@@ -65,8 +64,8 @@ export class PageViewComponent extends React.Component<PageViewComponent.Props> 
       this.setState({
         image: image
       });
-      this.fitToViewer();
       this.updateStageSize();
+      this.fitToViewer();
       this.selectLayer(1);
     };
   };
@@ -75,6 +74,7 @@ export class PageViewComponent extends React.Component<PageViewComponent.Props> 
     const {stage, image, containRatio} = this.state;
 
     let zoomOutRatio: number = 1;
+
     if (image.width > stage.width()) {
       zoomOutRatio = stage.width() / image.width;
     }
@@ -110,7 +110,7 @@ export class PageViewComponent extends React.Component<PageViewComponent.Props> 
 
   updateStageSize() {
     let {stage, image} = this.state;
-    const stageRef = this.refs['mainStage'];
+    const stageRef: any = this.refs['mainStage'];
     if (!stage) {
       stage = stageRef.getStage();
     }
@@ -121,19 +121,21 @@ export class PageViewComponent extends React.Component<PageViewComponent.Props> 
   }
 
   scrollToZoom(e: MouseWheelEvent) {
+
     const {stage, containRatio} = this.state;
 
     e.preventDefault();
     let scaleBy = 1.03;
-    let oldScale = stage.scaleX;
+    let oldScale = stage.scaleX();
 
     const mousePointTo = {
       x: stage.getPointerPosition().x / oldScale - stage.x() / oldScale,
       y: stage.getPointerPosition().y / oldScale - stage.y() / oldScale,
     };
 
+
     const newScale = e.deltaY > 0 ? oldScale * scaleBy : oldScale / scaleBy;
-    if (newScale < containRatio) {
+    if (newScale < containRatio || newScale > 4) {
       return;
     } else {
 
@@ -149,6 +151,7 @@ export class PageViewComponent extends React.Component<PageViewComponent.Props> 
         };
         newPos.x = newPos.x > 0 ? 0 : newPos.x;
         newPos.y = newPos.y > 0 ? 0 : newPos.y;
+        console.log(newScale)
         stage.position(newPos);
         stage.batchDraw();
       })

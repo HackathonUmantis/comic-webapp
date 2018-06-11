@@ -22,7 +22,7 @@ export namespace SeriesList {
   (state: RootState): Pick<SeriesList.Props, 'series'> => {
     return {series: state.series};
   },
-  (dispatch: Dispatch<RootState>): Pick<SeriesList.Props, 'comicsActions' | 'seriesActions'> => ({
+  (dispatch: Dispatch<any>): Pick<SeriesList.Props, 'comicsActions' | 'seriesActions'> => ({
     seriesActions: bindActionCreators(omit(SeriesActions, 'Type'), dispatch),
     comicsActions: bindActionCreators(omit(ComicsActions, 'Type'), dispatch)
   })

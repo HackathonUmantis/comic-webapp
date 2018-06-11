@@ -7,7 +7,7 @@ import {pagesReducer} from 'app/reducers/pages';
 
 export { RootState, RouterState };
 
-export const rootReducer: Reducer<RootState> = combineReducers<RootState>({
+export const rootReducer: Reducer<any> = combineReducers<any>({
   series: seriesReducer,
   comics: comicsReducer,
   pages: pagesReducer,

@@ -30,7 +30,7 @@ export namespace ComicsList {
       comics: state.comics,
     };
   },
-  (dispatch: Dispatch<RootState>): Pick<ComicsList.Props, 'pagesActions'> => ({
+  (dispatch: Dispatch<any>): Pick<ComicsList.Props, 'pagesActions'> => ({
     pagesActions: bindActionCreators(omit(PagesActions, 'Type'), dispatch)
   })
 )
